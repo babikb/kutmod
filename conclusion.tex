@@ -1,61 +1,63 @@
-%\usepackage{pdfpages}
 \section{Conclusion}
 
-This empirical study conducted a rigorous evaluation of leading Large Language Models (LLMs)—including models from the Gemini, GPT, and DeepSeek families—specifically assessing their capabilities in Automated Program Repair (APR) when confronted with the inherent challenges of concurrent programming problems. The evaluation focused on three critical dimensions: \textbf{Patch Accuracy}, \textbf{Newly Introduced Bugs (Side Effects)}, and \textbf{Efficiency} \cite{anand2024}. However we did not show newly introduced bugs on our graphs, because the data was stagnating between different LLM-s, thus not helping the question of which LLM is the best for concurrent APR at the moment.
+This empirical study conducted a rigorous evaluation of leading Large Language Models (LLMs)—including models from the Gemini, GPT, and DeepSeek families—specifically assessing their capabilities in Automated Program Repair (APR) when confronted with the inherent challenges of concurrent programming problems. The evaluation focused on three critical dimensions: \textbf{Patch Accuracy}, \textbf{Newly Introduced Bugs (Side Effects)}, and \textbf{Efficiency} \cite{anand2024}.
+
+%ide kell a kovi graph 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\columnwidth]{test/new_bugcount.pdf}
+    \caption*{
+        New bugs created by each LLM. 
+    }
+\end{figure}
+
+The differential between different Large Language Models concerning the introduction of new bugs is largely indistinguishable as the data visualized above shows. As it is illustrated, the data is mostly stagnant and not of concern with regards to our final conclusions.
+
+With regards to newly introduced bugs, the concept of a measure of severity can be brought up. As defined in this paper, the severity of a bug can be described as the effort needed to be put in to be able to solve it. With that being said though, this metric is dubious, vaguely defined and hard to measure. "Effort" as a quantitative resource is hard to define as first we need to ascertain who the final completion of the work will be done by. Human programmers and other APRs might find different errors harder or easier to fix not to even talk about the difference between those categories. Surface level metrics such as amount of lines changed can act as indicators but these metrics can at best work as guesstimation and a haruspex might provide better results.
+
 
 The findings confirm that LLMs have fundamentally reshaped the APR landscape \cite{anand2024}, moving beyond traditional template-based or heuristic approaches \cite{anand2024}. However, performance reliability in complex, non-deterministic concurrent environments varies drastically between models.
 
 \subsection{Empirical Evaluation Results}
-The specialized datasets enabled a detailed empirical investigation into how Large Language Models (LLMs) handle concurrent programming bugs as defect complexity increases, specifically focusing on multi-hunk repairs. Our primary metric, Average Patch Accuracy, measures the successful resolution of the initial concurrency defects \cite{anand2024}. This analysis revealed significant scaling differences, particularly distinguishing the robust performance of the Gemini-1.5-Pro model. While low-complexity 1-bug problems yielded an average accuracy of 73.41\% for Gemini-1.5-Pro, its performance dramatically improved with greater challenge. This upward trend indicates strong context utilization, reaching 91.19\% and 91.78\% accuracy for 2-bug and 3-bug categories, respectively . Crucially, on the most complex scenarios, Gemini-1.5-Pro achieved near-perfect fixation rates of 98.52\% for 4-bug defects and a remarkable 99.6\% for 5-bug defects. This contrasts sharply with competing models, where, for example, ChatGPT consistently lagged, achieving 67.23\% on 1-bug and 81.06\% on 3-bug tasks, demonstrating a clear failure to scale domain expertise effectively. Furthermore, assessing robustness via Newly Introduced Bugs is critical, as APR systems must mitigate side effects, a concern highlighted by studies where tools introduced thousands of new faults \cite{liyanage2025}. Gemini maintained high patch integrity, introducing a new defect in only 4 instances for 2-bug tests and a single instance in the 5-bug tests. This data underscores that high complexity concurrent APR necessitates models like Gemini that offer both superior fix accuracy and reliable semantic preservation across multi-hunk defects.
+The specialized datasets enabled a detailed empirical investigation into how Large Language Models (LLMs) handle concurrent programming bugs as defect complexity increases, specifically focusing on multi-hunk repairs. Our primary metric, Average Patch Accuracy, measures the successful resolution of the initial concurrency defects \cite{anand2024}. 
 
-%\begin{figure}[H]
-%    \centering
-%    \includepdf[pages=-]{test/avg_patch_per_bugcount.pdf}
-%    \caption*{
-%        Average patch accuracy grouped by bug count.
-%    }
-%\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\columnwidth]{test/avg_patch_per_bugcount.pdf}
+    \caption*{
+        Average patch accuracy grouped by bug count.
+    }
+\end{figure}
 
-%\begin{figure}[H]
-%    \centering
-%    \includepdf[pages=-]{test/1bug.pdf}
-%    \caption*{
-%        Tests with 1 bug.
-%    }
-%\end{figure}
-%\end{figure}
-%\begin{figure}[H]
-%    \centering
-%    \includepdf[pages=-]{test/2bugs.pdf}
-%    \caption*{
-%        Tests with 2 bug.
-%    }
-%\end{figure}
-%\end{figure}
-%\begin{figure}[H]
-%    \centering
-%    \includepdf[pages=-]{test/3bugs.pdf}
-%    \caption*{
-%        Tests with 3 bugs.
-%    }
-%\end{figure}
-%\end{figure}
-%\begin{figure}[H]
-%    \centering
-%    \includepdf[pages=-]{test/4bugs.pdf}
-%    \caption*{
-%        Tests with 4 buga.
-%    }
-%\end{figure}
-%\end{figure}
-%\begin{figure}[H]
-%    \centering
-%    \includepdf[pages=-]{test/5bugs.pdf}
-%    \caption*{
-%        Tests with 5 bugs.
-%    }
-%\end{figure}
 
+This analysis revealed significant scaling differences, particularly distinguishing the robust performance of the Gemini-1.5-Pro model. While low-complexity 1-bug problems yielded an average accuracy of 73.41\% for Gemini-1.5-Pro, its performance dramatically improved with greater challenge. This upward trend indicates strong context utilization, reaching 91.19\% and 91.78\% accuracy for 2-bug and 3-bug categories, respectively . Crucially, on the most complex scenarios, Gemini-1.5-Pro achieved near-perfect fixation rates of 98.52\% for 4-bug defects and a remarkable 99.6\% for 5-bug defects. This contrasts sharply with competing models, where, for example, ChatGPT consistently lagged, achieving 67.23\% on 1-bug and 81.06\% on 3-bug tasks, demonstrating a clear failure to scale domain expertise effectively. Furthermore, assessing robustness via Newly Introduced Bugs is critical, as APR systems must mitigate side effects, a concern highlighted by studies where tools introduced thousands of new faults \cite{liyanage2025}. Gemini maintained high patch integrity, introducing a new defect in only 4 instances for 2-bug tests and a single instance in the 5-bug tests. This data underscores that high complexity concurrent APR necessitates models like Gemini that offer both superior fix accuracy and reliable semantic preservation across multi-hunk defects.
+
+\begin{figure}
+    \begin{multicols}{2}
+    
+    \includegraphics[width=0.7\columnwidth]{test/1bug.pdf}
+        \caption{
+        Tests with 1 bug.
+        }
+    \includegraphics[width=0.7\columnwidth]{test/2bugs.pdf}
+        \caption{
+        Tests with 2 bugs.
+        }
+    \includegraphics[width=0.7\columnwidth]{test/3bugs.pdf}
+        \caption{
+        Tests with 3 bugs.
+        }
+    \columnbreak
+    \includegraphics[width=0.7\columnwidth]{test/4bugs.pdf}
+        \caption{
+        Tests with 4 bugs.
+        }
+    \includegraphics[width=0.7\columnwidth]{test/5bugs.pdf}
+        \caption{
+        Tests with 5 bugs.
+        }
+    \end{multicols}
+\end{figure}
 
 \begin{itemize}
     \item \textbf{Gemini-1.5-Pro Demonstrates Superior Scalability}: The Gemini model achieved exceptionally high patch accuracy, particularly in complex multi-hunk scenarios, demonstrating superior ability to manage complex defects while maintaining low levels of newly introduced bugs.
