@@ -1,0 +1,27 @@
+\addtocounter{section}{1}
+\setcounter{subsection}{1}
+% WBS
+%update values for WBS1 (progress)
+\renewcommand{\one}   {   999   } %
+\renewcommand{\two}   {   999   } %
+\renewcommand{\three} {   999   } %
+\renewcommand{\four}  {   999   } %
+\renewcommand{\five}  {   999   } %
+
+%Calculate total WBS1
+\FPeval{\result}{clip((\one+\two+\three+\four+\five)/5)}
+
+\ganttgroup[progress=\result]{WBS \s Title here}{2022-03-7}{2022-04-10} \\
+
+\ganttbar[name=A, bar inline label node/.style={right=2.5cm}, progress=\one]{\textbf{WBS \su} Example 1}{2022-03-7}{2022-03-15} \\
+
+\ganttbar[name=B, bar inline label node/.style={right=2.5cm}, progress=\two]{\textbf{WBS \su} Example 2}{2022-03-7}{2022-03-15} \\
+
+\ganttlinkedbar[name=C, bar inline label node/.style={right=5.5cm}, progress=\three]{\textbf{WBS \su} Example 3}{2022-03-16}{2022-04-5} \\
+
+\ganttlinkedbar[name=D, bar inline label node/.style={right=1.5cm}, progress=\four]{\textbf{WBS \su} Example 4}{2022-04-6}{2022-04-10} \\
+
+
+\ganttlinkedmilestone[name=MS3, progress=\result, milestone inline label node/.style={right=0.5cm}, progress label text={}]{\textbf{Milestone:} Completed Example}{2022-04-10} \\
+
+\ganttlink[link type=s-s]{A}{B} %s-s, s-f, f-f, f-s
